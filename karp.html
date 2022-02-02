@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hacking your computer 100%</title>
+</head>
+<body>
+    <h1>your computer Hacking</h1>
+  <canvas id="canvas" style="background:black" width="620" height="340"></canvas>
+<audio style="display:none; height: 0" id="bg-music" preload="auto" src="музыка / The Matrix.mp3"></audio>
+<style type="text/css">
+body{margin: 0; padding: 0; overflow: hidden;}
+</style>
+<script type="text/javascript">
+	
+	window.onload = function(){
+		// Получаем графические объекты
+		var canvas = document.getElementById("canvas");
+		// Получаем контекст графики
+		var context = canvas.getContext("2d");
+		// Получаем ширину и высоту экрана браузера
+		var W = window.innerWidth;
+		var H = window.innerHeight;
+		// Устанавливаем ширину и высоту холста
+		canvas.width = W;
+		canvas.height = H;
+		// Размер шрифта каждого текста
+		var fontSize = 15;
+		// Расчетный столбец
+		var colunms = Math.floor(W /fontSize);	
+		// Записываем координаты по оси Y каждого столбца текста
+		var drops = [];
+		// Инициализируем начальную точку для каждого текста
+		for(var i=0;i<colunms;i++){
+			drops.push(0);
+		}
+
+		// Движущийся текст
+		var str ="01abcdefghijklmnopqurstuvwxyz";
+		// 4: fillText (str, x, y); Принцип состоит в том, чтобы изменить положение координаты y
+		// Функция рисования
+		function draw(){
+		// Пусть фон постепенно изменится с прозрачного на непрозрачный
+			context.fillStyle = "rgba(0,0,0,0.05)";
+			context.fillRect(0,0,W,H);
+			// Устанавливаем стиль шрифта
+			//context.font = "700" + fontSize + "px Microsoft Yahei";
+			context.font = fontSize + 'px arial';
+			// Добавляем цвет к шрифту
+			context.fillStyle ="green";// Меняем цвет шрифта по желанию
+			// Записываем в график
+			for(var i=0;i<colunms;i++){
+				var index = Math.floor(Math.random() * str.length);
+				var x = i*fontSize;
+				var y = drops[i] *fontSize;
+				context.fillText(str[index],x,y);
+				// Если вы хотите изменить время, вы должны каждый раз менять начальную точку
+				if(y >= canvas.height && Math.random() > 0.92){
+					drops[i] = 0;
+				}
+				drops[i]++;
+			}
+		};
+
+		function randColor(){
+			var r = Math.floor(Math.random() * 256);
+			var g = Math.floor(Math.random() * 256);
+			var b = Math.floor(Math.random() * 256);
+			return "rgb("+r+","+g+","+b+")";
+		}
+
+		draw();
+		setInterval(draw,33);
+	};
+
+</script>
+
+</body>
+</html>
